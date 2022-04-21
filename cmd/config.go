@@ -20,6 +20,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/cosmos/relayer/v2/relayer/provider/cosmos"
 	"io"
 	"io/ioutil"
 	"os"
@@ -33,7 +34,8 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/relayer/v2/relayer"
 	"github.com/cosmos/relayer/v2/relayer/provider"
-	"github.com/cosmos/relayer/v2/relayer/provider/cosmos"
+	//"github.com/cosmos/relayer/v2/relayer/provider/cosmos"
+	"github.com/cosmos/relayer/v2/relayer/provider/imversed"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 	"gopkg.in/yaml.v3"
@@ -235,8 +237,10 @@ func addChainsFromDirectory(stderr io.Writer, a *appState, dir string) error {
 			fmt.Fprintf(stderr, "failed to read file %s. Err: %v skipping...\n", pth, err)
 			continue
 		}
+		//strings.Contains(ChainID, "imversed")
 
 		var pcw ProviderConfigWrapper
+
 		if err = json.Unmarshal(byt, &pcw); err != nil {
 			fmt.Fprintf(stderr, "failed to unmarshal file %s. Err: %v skipping...\n", pth, err)
 			continue
@@ -250,6 +254,8 @@ func addChainsFromDirectory(stderr io.Writer, a *appState, dir string) error {
 			fmt.Fprintf(stderr, "failed to build ChainProvider for %s. Err: %v \n", pth, err)
 			continue
 		}
+
+		fmt.Println("PROVIDER TYPE", prov.Type())
 
 		c := relayer.NewChain(a.Log, prov, a.Debug)
 		if err = a.Config.AddChain(c); err != nil {
@@ -358,7 +364,8 @@ type ProviderConfigYAMLWrapper struct {
 // NOTE: Add new ProviderConfig types in the map here with the key set equal to the type of ChainProvider (e.g. cosmos, substrate, etc.)
 func (pcw *ProviderConfigWrapper) UnmarshalJSON(data []byte) error {
 	customTypes := map[string]reflect.Type{
-		"cosmos": reflect.TypeOf(cosmos.CosmosProviderConfig{}),
+		"cosmos":   reflect.TypeOf(cosmos.CosmosProviderConfig{}),
+		"imversed": reflect.TypeOf(imversed.ImversedProviderConfig{}),
 	}
 	val, err := UnmarshalJSONProviderConfig(data, customTypes)
 	if err != nil {
@@ -411,6 +418,9 @@ func (iw *ProviderConfigYAMLWrapper) UnmarshalYAML(n *yaml.Node) error {
 	switch iw.Type {
 	case "cosmos":
 		iw.Value = new(cosmos.CosmosProviderConfig)
+	case "imversed":
+		iw.Value = new(imversed.ImversedProviderConfig)
+
 	default:
 		return fmt.Errorf("%s is an invalid chain type, check your config file", iw.Type)
 	}
