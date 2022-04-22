@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	imvhd "github.com/cosmos/relayer/v2/chain_client/imversed/crypto/hd"
 	"io"
 	"path"
 	"time"
@@ -63,7 +64,8 @@ func NewChainClient(log *zap.Logger, ccc *ChainClientConfig, homepath string, in
 
 func (cc *ChainClient) Init() error {
 	// TODO: test key directory and return error if not created
-	keybase, err := keyring.New(cc.Config.ChainID, cc.Config.KeyringBackend, cc.Config.KeyDirectory, cc.Input, cc.KeyringOptions...)
+
+	keybase, err := keyring.New(cc.Config.ChainID, cc.Config.KeyringBackend, cc.Config.KeyDirectory, cc.Input, imvhd.EthSecp256k1Option())
 	if err != nil {
 		return err
 	}

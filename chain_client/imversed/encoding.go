@@ -25,8 +25,8 @@ func MakeCodec(moduleBasics []module.AppModuleBasic) Codec {
 	modBasic := module.NewBasicManager(moduleBasics...)
 	encodingConfig := MakeCodecConfig()
 	RegisterLegacyAminoCodec(encodingConfig.Amino)
+	modBasic.RegisterLegacyAminoCodec(encodingConfig.Amino)
 	RegisterInterfaces(encodingConfig.InterfaceRegistry)
-	//RegisterLegacyAminoCodec(encodingConfig.Amino)
 	modBasic.RegisterInterfaces(encodingConfig.InterfaceRegistry)
 	return encodingConfig
 }

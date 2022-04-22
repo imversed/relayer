@@ -121,10 +121,10 @@ func (cc *ChainClient) KeyAddOrRestore(keyName string, coinType uint32, mnemonic
 		}
 	}
 	//
-	//keyringAlgos, _ := cc.Keybase.SupportedAlgorithms()
-	//algo, err := keyring.NewSigningAlgoFromString("eth_secp256k1", keyringAlgos)
-	//info, err := cc.Keybase.NewAccount(keyName, mnemonicStr, "", hd.CreateHDPath(coinType, 0, 0).String(), hd.Secp256k1)
-	info, err := cc.Keybase.NewAccount(keyName, mnemonicStr, "", hd.CreateHDPath(coinType, 0, 0).String(), imvhd.EthSecp256k1)
+	keyringAlgos, _ := cc.Keybase.SupportedAlgorithms()
+	algo, err := keyring.NewSigningAlgoFromString("eth_secp256k1", keyringAlgos)
+	info, err := cc.Keybase.NewAccount(keyName, mnemonicStr, "", hd.CreateHDPath(coinType, 0, 0).String(), algo)
+	//info, err := cc.Keybase.NewAccount(keyName, mnemonicStr, "", hd.CreateHDPath(coinType, 0, 0).String(), imvhd.EthSecp256k1)
 
 	if err != nil {
 		return nil, err

@@ -32,7 +32,6 @@ import (
 	tmclient "github.com/cosmos/ibc-go/v3/modules/light-clients/07-tendermint/types"
 	"github.com/cosmos/relayer/v2/relayer/provider"
 	"github.com/gogo/protobuf/proto"
-	lens "github.com/strangelove-ventures/lens/client"
 	ctypes "github.com/tendermint/tendermint/rpc/core/types"
 	tmtypes "github.com/tendermint/tendermint/types"
 	"go.uber.org/zap"
@@ -145,6 +144,7 @@ func (pc ImversedProviderConfig) Validate() error {
 func (pc ImversedProviderConfig) NewProvider(log *zap.Logger, homepath string, debug bool) (provider.ChainProvider, error) {
 
 	fmt.Println("IMVERSED")
+	fmt.Println(pc)
 
 	if err := pc.Validate(); err != nil {
 		return nil, err
@@ -171,25 +171,6 @@ func (pc ImversedProviderConfig) NewProvider(log *zap.Logger, homepath string, d
 	}, nil
 }
 
-// ChainClientConfig builds a ChainClientConfig struct from a ImversedProviderConfig, this is used
-// to instantiate an instance of ChainClient from lens which is how we build the ImversedProvider
-func ChainClientConfig(pcfg *ImversedProviderConfig) *lens.ChainClientConfig {
-	return &lens.ChainClientConfig{
-		Key:            pcfg.Key,
-		ChainID:        pcfg.ChainID,
-		RPCAddr:        pcfg.RPCAddr,
-		AccountPrefix:  pcfg.AccountPrefix,
-		KeyringBackend: pcfg.KeyringBackend,
-		GasAdjustment:  pcfg.GasAdjustment,
-		GasPrices:      pcfg.GasPrices,
-		Debug:          pcfg.Debug,
-		Timeout:        pcfg.Timeout,
-		OutputFormat:   pcfg.OutputFormat,
-		SignModeStr:    pcfg.SignModeStr,
-		Modules:        append([]module.AppModuleBasic{}, lens.ModuleBasics...),
-	}
-}
-
 func ImvChainClientConfig(pcfg *ImversedProviderConfig) *imvclient.ChainClientConfig {
 	return &imvclient.ChainClientConfig{
 		Key:            pcfg.Key,
@@ -203,7 +184,7 @@ func ImvChainClientConfig(pcfg *ImversedProviderConfig) *imvclient.ChainClientCo
 		Timeout:        pcfg.Timeout,
 		OutputFormat:   pcfg.OutputFormat,
 		SignModeStr:    pcfg.SignModeStr,
-		Modules:        append([]module.AppModuleBasic{}, lens.ModuleBasics...),
+		Modules:        append([]module.AppModuleBasic{}, imvclient.ModuleBasics...),
 	}
 }
 
@@ -235,11 +216,11 @@ func (cc *ImversedProvider) Timeout() string {
 }
 
 func (cc *ImversedProvider) AddKey(name string, coinType uint32) (*provider.KeyOutput, error) {
-	// The lens client returns an equivalent KeyOutput type,
-	// but that type is declared in the lens module,
+	// The imversed client returns an equivalent KeyOutput type,
+	// but that type is declared in the imversed module,
 	// and relayer's KeyProvider interface references the relayer KeyOutput.
 	//
-	// Translate the lens KeyOutput to a relayer KeyOutput here to satisfy the interface.
+	// Translate the imversed KeyOutput to a relayer KeyOutput here to satisfy the interface.
 
 	ko, err := cc.ChainClient.AddKey(name, coinType)
 	if err != nil {
