@@ -3,6 +3,7 @@ package client
 import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
 	//"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/codec/types"
@@ -42,9 +43,23 @@ func MakeCodecConfig() Codec {
 	}
 }
 
+type EthAccount struct {
+	*authtypes.BaseAccount `protobuf:"bytes,1,opt,name=base_account,json=baseAccount,proto3,embedded=base_account" json:"base_account,omitempty" yaml:"base_account"`
+	CodeHash               string `protobuf:"bytes,2,opt,name=code_hash,json=codeHash,proto3" json:"code_hash,omitempty" yaml:"code_hash"`
+}
+
 func RegisterInterfaces(interfaceRegistry types.InterfaceRegistry) {
 	std.RegisterInterfaces(interfaceRegistry)
 	cryptocodec.RegisterInterfaces(interfaceRegistry)
+	interfaceRegistry.RegisterImplementations(
+		(*authtypes.AccountI)(nil),
+		&EthAccount{},
+	)
+	interfaceRegistry.RegisterImplementations(
+		(*authtypes.GenesisAccount)(nil),
+		&EthAccount{},
+	)
+
 	//ethermint.RegisterInterfaces(interfaceRegistry)
 }
 
