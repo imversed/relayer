@@ -22,7 +22,6 @@ import (
 
 func (cc *ChainClient) TxFactory() tx.Factory {
 	return tx.Factory{}.
-		WithAccountRetriever(cc).
 		WithChainID(cc.Config.ChainID).
 		WithTxConfig(cc.Codec.TxConfig).
 		WithGasAdjustment(cc.Config.GasAdjustment).
@@ -134,7 +133,7 @@ func (cc *ChainClient) PrepareFactory(txf tx.Factory) (tx.Factory, error) {
 
 	// Set the account number and sequence on the transaction factory and retry if fail
 	if err = retry.Do(func() error {
-		if err = txf.AccountRetriever().EnsureExists(cliCtx, from); err != nil {
+		if err = cc.EnsureExists(cliCtx, from); err != nil {
 			return err
 		}
 		return err
@@ -146,7 +145,7 @@ func (cc *ChainClient) PrepareFactory(txf tx.Factory) (tx.Factory, error) {
 	initNum, initSeq := txf.AccountNumber(), txf.Sequence()
 	if initNum == 0 || initSeq == 0 {
 		if err = retry.Do(func() error {
-			num, seq, err = txf.AccountRetriever().GetAccountNumberSequence(cliCtx, from)
+			num, seq, err = cc.GetAccountNumberSequence(cliCtx, from)
 			if err != nil {
 				return err
 			}
