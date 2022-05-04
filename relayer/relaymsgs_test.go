@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/cosmos/relayer/v2/relayer"
-	"github.com/cosmos/relayer/v2/relayer/provider"
+	"github.com/imversed/relayer/relayer"
+	"github.com/imversed/relayer/relayer/provider"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
 )

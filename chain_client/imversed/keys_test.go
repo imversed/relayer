@@ -1,13 +1,13 @@
 package client_test
 
 import (
-	imvclient "github.com/cosmos/relayer/v2/chain_client/imversed"
-	imvprovider "github.com/cosmos/relayer/v2/relayer/provider/imversed"
+	imvclient "github.com/imversed/relayer/chain_client/imversed"
+	imvprovider "github.com/imversed/relayer/relayer/provider/imversed"
 
 	"os"
 	"testing"
 
-	"github.com/cosmos/relayer/v2/chain_client/imversed/crypto/hd"
+	"github.com/imversed/relayer/chain_client/imversed/crypto/hd"
 
 	"go.uber.org/zap/zaptest"
 )

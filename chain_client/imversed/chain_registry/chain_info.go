@@ -11,8 +11,8 @@ import (
 	"path"
 	"time"
 
-	"github.com/cosmos/relayer/v2/chain_client/imversed"
 	"github.com/google/go-github/v43/github"
+	client "github.com/imversed/relayer/chain_client/imversed"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"golang.org/x/sync/errgroup"

@@ -3,10 +3,11 @@ package client
 import (
 	"errors"
 	"fmt"
+
 	"github.com/cosmos/cosmos-sdk/crypto/hd"
 
 	//"github.com/cosmos/cosmos-sdk/crypto/hd"
-	imvhd "github.com/cosmos/relayer/v2/chain_client/imversed/crypto/hd"
+	imvhd "github.com/imversed/relayer/chain_client/imversed/crypto/hd"
 
 	//sdk "github.com/cosmos/cosmos-sdk/types"
 	"os"

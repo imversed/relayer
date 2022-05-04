@@ -1,6 +1,6 @@
 package main
 
-import "github.com/cosmos/relayer/v2/cmd"
+import "github.com/imversed/relayer/cmd"
 
 func main() {
 	cmd.Execute()
