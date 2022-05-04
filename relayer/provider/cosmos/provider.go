@@ -143,7 +143,6 @@ func (pc CosmosProviderConfig) Validate() error {
 
 // NewProvider validates the CosmosProviderConfig, instantiates a ChainClient and then instantiates a CosmosProvider
 func (pc CosmosProviderConfig) NewProvider(log *zap.Logger, homepath string, debug bool) (provider.ChainProvider, error) {
-	fmt.Println("COSMOS")
 	if err := pc.Validate(); err != nil {
 		return nil, err
 	}

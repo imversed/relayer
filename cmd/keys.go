@@ -114,8 +114,6 @@ $ %s k r ibc-1 faucet-key "[mnemonic-words]"`, appName, appName)),
 			if err != nil {
 				return err
 			}
-			fmt.Println(chain.ChainProvider.Type())
-			fmt.Println(chain.ChainProvider.ChainId())
 
 			if chain.ChainProvider.KeyExists(keyName) {
 				return errKeyExists(keyName)

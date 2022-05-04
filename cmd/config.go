@@ -257,8 +257,6 @@ func addChainsFromDirectory(stderr io.Writer, a *appState, dir string) error {
 			continue
 		}
 
-		fmt.Println("PROVIDER TYPE", prov.Type())
-
 		c := relayer.NewChain(a.Log, prov, a.Debug)
 		if err = a.Config.AddChain(c); err != nil {
 			fmt.Fprintf(stderr, "failed to add chain %s: %v \n", pth, err)

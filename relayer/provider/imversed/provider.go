@@ -143,10 +143,6 @@ func (pc ImversedProviderConfig) Validate() error {
 
 // NewProvider validates the ImversedProviderConfig, instantiates a ChainClient and then instantiates a ImversedProvider
 func (pc ImversedProviderConfig) NewProvider(log *zap.Logger, homepath string, debug bool) (provider.ChainProvider, error) {
-
-	fmt.Println("IMVERSED")
-	fmt.Println(pc)
-
 	if err := pc.Validate(); err != nil {
 		return nil, err
 	}
@@ -159,7 +155,6 @@ func (pc ImversedProviderConfig) NewProvider(log *zap.Logger, homepath string, d
 		os.Stdout,
 		hd.EthSecp256k1Option(),
 	)
-	fmt.Println()
 
 	if err != nil {
 		return nil, err
