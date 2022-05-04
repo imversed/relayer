@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/metadata"
 
 	ethereum "github.com/ethereum/go-ethereum/common"
-	"github.com/imversed/imversed/x/evm/types"
+	ethertypes "github.com/tharsis/ethermint/x/evm/types"
 )
 
 // EnsureExists returns an error if no account exists for the given address else nil.
@@ -27,8 +27,8 @@ func (cc *ChainClient) GetAccountNumberSequence(clientCtx client.Context, addr s
 	var header metadata.MD
 	address := ethereum.BytesToAddress(addr).String()
 
-	queryClient := types.NewQueryClient(cc)
-	res, err := queryClient.CosmosAccount(context.Background(), &types.QueryCosmosAccountRequest{Address: address}, grpc.Header(&header))
+	queryClient := ethertypes.NewQueryClient(cc)
+	res, err := queryClient.CosmosAccount(context.Background(), &ethertypes.QueryCosmosAccountRequest{Address: address}, grpc.Header(&header))
 	if err != nil {
 		return 0, 0, err
 	}
