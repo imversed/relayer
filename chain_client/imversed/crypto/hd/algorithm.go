@@ -3,7 +3,7 @@ package hd
 import (
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/btcsuite/btcutil/hdkeychain"
-	ethsecp256k12 "github.com/cosmos/relayer/v2/chain_client/imversed/crypto/ethsecp256k1"
+	ethsecp256k12 "github.com/imversed/relayer/chain_client/imversed/crypto/ethsecp256k1"
 	bip39 "github.com/tyler-smith/go-bip39"
 
 	"github.com/ethereum/go-ethereum/accounts"

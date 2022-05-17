@@ -6,7 +6,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	ibcexported "github.com/cosmos/ibc-go/v3/modules/core/exported"
-	"github.com/cosmos/relayer/v2/relayer"
+	"github.com/imversed/relayer/relayer"
 )
 
 // QueryBalance is a helper function for query balance

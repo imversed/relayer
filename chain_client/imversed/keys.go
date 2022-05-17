@@ -2,11 +2,10 @@ package client
 
 import (
 	"errors"
-	"fmt"
 	"github.com/cosmos/cosmos-sdk/crypto/hd"
 
 	//"github.com/cosmos/cosmos-sdk/crypto/hd"
-	imvhd "github.com/cosmos/relayer/v2/chain_client/imversed/crypto/hd"
+	imvhd "github.com/imversed/relayer/chain_client/imversed/crypto/hd"
 
 	//sdk "github.com/cosmos/cosmos-sdk/types"
 	"os"
@@ -49,8 +48,6 @@ func (cc *ChainClient) AddKey(name string, coinType uint32) (output *KeyOutput, 
 }
 
 func (cc *ChainClient) RestoreKey(name, mnemonic string, coinType uint32) (address string, err error) {
-	fmt.Println("IMVERSED RestoreKey")
-
 	ko, err := cc.KeyAddOrRestore(name, coinType, mnemonic)
 	if err != nil {
 		return "", err
@@ -108,7 +105,6 @@ func (cc *ChainClient) ExportPrivKeyArmor(keyName string) (armor string, err err
 }
 
 func (cc *ChainClient) KeyAddOrRestore(keyName string, coinType uint32, mnemonic ...string) (*KeyOutput, error) {
-	fmt.Println("IMVERSED KeyAddOrRestore")
 	var mnemonicStr string
 	var err error
 

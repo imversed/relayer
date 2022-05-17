@@ -8,8 +8,8 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	ibcexported "github.com/cosmos/ibc-go/v3/modules/core/exported"
-	"github.com/cosmos/relayer/v2/helpers"
-	"github.com/cosmos/relayer/v2/relayer"
+	"github.com/imversed/relayer/helpers"
+	"github.com/imversed/relayer/relayer"
 	"github.com/spf13/cobra"
 )
 

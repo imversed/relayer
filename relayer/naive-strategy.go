@@ -7,7 +7,7 @@ import (
 	"github.com/avast/retry-go/v4"
 	chantypes "github.com/cosmos/ibc-go/v3/modules/core/04-channel/types"
 	ibcexported "github.com/cosmos/ibc-go/v3/modules/core/exported"
-	"github.com/cosmos/relayer/v2/relayer/provider"
+	"github.com/imversed/relayer/relayer/provider"
 	"go.uber.org/zap"
 	"golang.org/x/sync/errgroup"
 )

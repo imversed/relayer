@@ -4,10 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	imvhd "github.com/cosmos/relayer/v2/chain_client/imversed/crypto/hd"
 	"io"
 	"path"
 	"time"
+
+	imvhd "github.com/imversed/relayer/chain_client/imversed/crypto/hd"
 
 	"github.com/avast/retry-go/v4"
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"

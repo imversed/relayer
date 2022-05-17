@@ -5,6 +5,7 @@ release.tar.gz
 .env
 nchainz/
 .idea/
+.vscode/
 .csv
 chain-code/
 two-chains/ibc-*

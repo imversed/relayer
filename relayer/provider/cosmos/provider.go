@@ -4,13 +4,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	imvclient "github.com/cosmos/relayer/v2/chain_client/imversed"
 	"math"
 	"os"
 	"reflect"
 	"strconv"
 	"strings"
 	"time"
+
+	imvclient "github.com/imversed/relayer/chain_client/imversed"
 
 	"github.com/avast/retry-go/v4"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -29,8 +30,8 @@ import (
 	host "github.com/cosmos/ibc-go/v3/modules/core/24-host"
 	ibcexported "github.com/cosmos/ibc-go/v3/modules/core/exported"
 	tmclient "github.com/cosmos/ibc-go/v3/modules/light-clients/07-tendermint/types"
-	"github.com/cosmos/relayer/v2/relayer/provider"
 	"github.com/gogo/protobuf/proto"
+	"github.com/imversed/relayer/relayer/provider"
 	lens "github.com/strangelove-ventures/lens/client"
 	ctypes "github.com/tendermint/tendermint/rpc/core/types"
 	tmtypes "github.com/tendermint/tendermint/types"
@@ -142,7 +143,6 @@ func (pc CosmosProviderConfig) Validate() error {
 
 // NewProvider validates the CosmosProviderConfig, instantiates a ChainClient and then instantiates a CosmosProvider
 func (pc CosmosProviderConfig) NewProvider(log *zap.Logger, homepath string, debug bool) (provider.ChainProvider, error) {
-	fmt.Println("COSMOS")
 	if err := pc.Validate(); err != nil {
 		return nil, err
 	}

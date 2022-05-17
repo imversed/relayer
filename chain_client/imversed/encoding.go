@@ -12,7 +12,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/cosmos/cosmos-sdk/x/auth/tx"
-	cryptocodec "github.com/cosmos/relayer/v2/chain_client/imversed/crypto/codec"
+	cryptocodec "github.com/imversed/relayer/chain_client/imversed/crypto/codec"
 )
 
 type Codec struct {

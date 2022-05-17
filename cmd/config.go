@@ -20,7 +20,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/cosmos/relayer/v2/relayer/provider/cosmos"
 	"io"
 	"io/ioutil"
 	"os"
@@ -30,12 +29,15 @@ import (
 	"strings"
 	"time"
 
+	"github.com/imversed/relayer/relayer/provider/cosmos"
+
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/cosmos/relayer/v2/relayer"
-	"github.com/cosmos/relayer/v2/relayer/provider"
-	//"github.com/cosmos/relayer/v2/relayer/provider/cosmos"
-	"github.com/cosmos/relayer/v2/relayer/provider/imversed"
+	"github.com/imversed/relayer/relayer"
+	"github.com/imversed/relayer/relayer/provider"
+
+	//"github.com/imversed/relayer/relayer/provider/cosmos"
+	"github.com/imversed/relayer/relayer/provider/imversed"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 	"gopkg.in/yaml.v3"
@@ -254,8 +256,6 @@ func addChainsFromDirectory(stderr io.Writer, a *appState, dir string) error {
 			fmt.Fprintf(stderr, "failed to build ChainProvider for %s. Err: %v \n", pth, err)
 			continue
 		}
-
-		fmt.Println("PROVIDER TYPE", prov.Type())
 
 		c := relayer.NewChain(a.Log, prov, a.Debug)
 		if err = a.Config.AddChain(c); err != nil {

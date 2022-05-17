@@ -1,12 +1,13 @@
 package client_test
 
 import (
-	imvclient "github.com/cosmos/relayer/v2/chain_client/imversed"
-	imvprovider "github.com/cosmos/relayer/v2/relayer/provider/imversed"
+	imvclient "github.com/imversed/relayer/chain_client/imversed"
+	imvprovider "github.com/imversed/relayer/relayer/provider/imversed"
 
-	"github.com/cosmos/relayer/v2/chain_client/imversed/crypto/hd"
 	"os"
 	"testing"
+
+	"github.com/imversed/relayer/chain_client/imversed/crypto/hd"
 
 	"go.uber.org/zap/zaptest"
 )
@@ -17,7 +18,7 @@ func TestKeyRestore(t *testing.T) {
 	mnemonic := "empower bounce moon grain plug brisk anchor breeze van submit task develop blush lottery border dish card moment drum pull glass must vicious main"
 	expectedAddress := "imv1x70p5l9ntluxu6kmkj6wg44mlkzku70e8fx222"
 	var coinType uint32
-	coinType = 118 // Cosmos coin type used in address derivation
+	coinType = 60 // Ethermint coin type used in address derivation
 
 	homepath := t.TempDir()
 

@@ -4,14 +4,15 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	imvclient "github.com/cosmos/relayer/v2/chain_client/imversed"
-	"github.com/cosmos/relayer/v2/chain_client/imversed/crypto/hd"
 	"math"
 	"os"
 	"reflect"
 	"strconv"
 	"strings"
 	"time"
+
+	imvclient "github.com/imversed/relayer/chain_client/imversed"
+	"github.com/imversed/relayer/chain_client/imversed/crypto/hd"
 
 	"github.com/avast/retry-go/v4"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -30,8 +31,8 @@ import (
 	host "github.com/cosmos/ibc-go/v3/modules/core/24-host"
 	ibcexported "github.com/cosmos/ibc-go/v3/modules/core/exported"
 	tmclient "github.com/cosmos/ibc-go/v3/modules/light-clients/07-tendermint/types"
-	"github.com/cosmos/relayer/v2/relayer/provider"
 	"github.com/gogo/protobuf/proto"
+	"github.com/imversed/relayer/relayer/provider"
 	ctypes "github.com/tendermint/tendermint/rpc/core/types"
 	tmtypes "github.com/tendermint/tendermint/types"
 	"go.uber.org/zap"
@@ -142,10 +143,6 @@ func (pc ImversedProviderConfig) Validate() error {
 
 // NewProvider validates the ImversedProviderConfig, instantiates a ChainClient and then instantiates a ImversedProvider
 func (pc ImversedProviderConfig) NewProvider(log *zap.Logger, homepath string, debug bool) (provider.ChainProvider, error) {
-
-	fmt.Println("IMVERSED")
-	fmt.Println(pc)
-
 	if err := pc.Validate(); err != nil {
 		return nil, err
 	}
@@ -158,7 +155,6 @@ func (pc ImversedProviderConfig) NewProvider(log *zap.Logger, homepath string, d
 		os.Stdout,
 		hd.EthSecp256k1Option(),
 	)
-	fmt.Println()
 
 	if err != nil {
 		return nil, err
